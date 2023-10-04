@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data;
 using PeopleApp.Models;
 
 namespace PeopleApp.Repository
@@ -10,13 +7,12 @@ namespace PeopleApp.Repository
     {
         private List<Person> people;
 
-
         public PeopleRepository() 
         {
             people = new List<Person>() {
                 new Person("Mike", 42),
-                new Person("Cindy", 37),
-                new Person("Camille", 16),
+                new Person("Stefany", 37),
+                new Person("Camille", 18),
             };
         }
 
@@ -25,13 +21,27 @@ namespace PeopleApp.Repository
             return people.Count;
         }
 
-        public bool Add(Person person)
+        public Person? Get(string _firstname) 
         {
-            if(!string.IsNullOrEmpty(person.Firstname) && person.Age > 0) {
-                people.Add(person);
-                return true;
+            return people.FirstOrDefault(p => p.Firstname == _firstname);
+        }
+
+        public void Add(Person person)
+        {
+            if(!person.HasFirstname()) {
+                throw new NoNullAllowedException("Le prénom ne peut être vide.");
             }
-            return false;
+
+            if(!person.IsAdult()) {
+                throw new InvalidDataException("La personne doit être majeure.");
+            }
+
+            if(Get(person.Firstname) != null)
+            {
+                throw new InvalidDataException("Le prénom existse déjà.");
+            }
+
+            people.Add(person);
         }
     }
 }

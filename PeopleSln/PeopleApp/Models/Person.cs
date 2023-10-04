@@ -1,35 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace PeopleApp.Models
 {
     public class Person
     {
-        private string firstname;
-        private int age;
+        const int MAJORITE = 18;
 
-        public string Firstname { get { return firstname; } set { firstname = value; }}
+        public string Firstname { get; private set; }
 
-        public int Age { get { return age; } set { age = value; }}
+        public int Age { get; private set; }
 
         public Person() : this("John", 18) {}
 
         public Person(string _firstname, int _age)
         {
-            firstname = _firstname;
-            age = _age;
+            Firstname = _firstname;
+            Age = _age;
         }
 
         public bool HasFirstname() 
         {
-            return !string.IsNullOrEmpty(firstname);
+            return !string.IsNullOrEmpty(Firstname);
         }
 
         public bool IsAdult() 
         {
-            return age >= 18;
+            return Age >= MAJORITE;
         }
     }
 }
