@@ -30,9 +30,11 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+        working-directory: PeopleSln
 
       - name: Build
         run: dotnet build --no-restore
+        working-directory: PeopleSln
 
       - name: Convert sarif for uploading to GitHub
         uses: security-code-scan/security-code-scan-results-action@cdb3d5e639054395e45bf401cba8688fcaf7a687
